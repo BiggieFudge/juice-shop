@@ -16,4 +16,4 @@ steps:
   inputs:
     xrayConnection: 'kimt2'
     watchesSource: 'watches'
-    allowFailBuild: true
+    allowFailBuild: false
