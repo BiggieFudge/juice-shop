@@ -15,5 +15,5 @@ steps:
 - task: JFrogAudit@1
   inputs:
     xrayConnection: 'kimt2'
-    watchesSource: 'watches'
-    allowFailBuild: false
+    watchesSource: 'none'
+    licenses: false
