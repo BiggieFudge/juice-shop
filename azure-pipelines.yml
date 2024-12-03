@@ -17,3 +17,11 @@ steps:
     xrayConnection: 'kimt2'
     watchesSource: 'none'
     licenses: false
+
+- task: JfrogCliV2@1
+  inputs:
+    jfrogPlatformConnection: 'kimt cli'
+    command: |
+      jf install --build-name=etnbuild --build-number=1.0.0
+      jf publish --build-name=etnbuild --build-number=1.0.0
+      jf bs etnbuild 1.0.0
