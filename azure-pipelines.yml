@@ -17,7 +17,7 @@ steps:
   inputs:
     jfrogPlatformConnection: 'kimt cli'
     command: |
-      jf npmc --server-id-resolve='kimt cli' --server-id-deploy='kimt cli' --repo-resolve='eytanr-npm' --repo-deploy='eytanr-npm'
+      jf npmc --server-id-resolve='BiggieFudge.juice-shop_20241203.4_jfrog_cli_cmd_1733245677803' --server-id-deploy='BiggieFudge.juice-shop_20241203.4_jfrog_cli_cmd_1733245677803' --repo-resolve='eytanr-npm' --repo-deploy='eytanr-npm'
       jf npm install --build-name=etnbuild --build-number=1.0.0
       jf publish --build-name=etnbuild --build-number=1.0.0
       jf bs etnbuild 1.0.0
