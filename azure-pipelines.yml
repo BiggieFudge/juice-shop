@@ -12,26 +12,27 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
+
 - task: JFrogNpm@1
   inputs:
     command: 'install'
     artifactoryConnection: 'kimt'
-    sourceRepo: 'eytanr-npm'
+    sourceRepo: 'etnpm'
 
 - task: JFrogNpm@1
   inputs:
     command: 'pack and publish'
     artifactoryConnection: 'kimt'
-    targetRepo: 'eytanr-npm'
+    targetRepo: 'etnpm'
 
-- task: JfrogCliV2@1
+- task: JFrogBuildScan@1
   inputs:
-    jfrogPlatformConnection: 'kimt cli'
-    command: |
-      jf npmc --server-id-resolve='' --server-id-deploy='' --repo-resolve='eytanr-npm' --repo-deploy='eytanr-npm'
-      jf npm install --build-name=etnbuild --build-number=1.0.0
-      jf publish --build-name=etnbuild --build-number=1.0.0
-      jf bs etnbuild 1.0.0
+    xrayConnection: 'kimt2'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    allowFailBuild: false
+    vuln: false
+
   
 - task: JFrogAudit@1
   inputs:
