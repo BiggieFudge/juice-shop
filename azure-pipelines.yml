@@ -16,18 +16,18 @@ steps:
 - task: JFrogNpm@1
   inputs:
     command: 'install'
-    artifactoryConnection: 'kimt'
+    artifactoryConnection: 'idani'
     sourceRepo: 'etnpm-npm'
 
 - task: JFrogNpm@1
   inputs:
     command: 'pack and publish'
-    artifactoryConnection: 'kimt'
+    artifactoryConnection: 'idani'
     targetRepo: 'etnpm-npm'
 
 - task: JFrogBuildScan@1
   inputs:
-    xrayConnection: 'kimt2'
+    xrayConnection: 'idanix'
     buildName: '$(Build.DefinitionName)'
     buildNumber: '$(Build.BuildNumber)'
     allowFailBuild: false
