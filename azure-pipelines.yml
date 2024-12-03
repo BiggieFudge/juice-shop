@@ -12,16 +12,18 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- task: JFrogAudit@1
-  inputs:
-    xrayConnection: 'kimt2'
-    watchesSource: 'none'
-    licenses: false
 
 - task: JfrogCliV2@1
   inputs:
     jfrogPlatformConnection: 'kimt cli'
     command: |
+      jf npmc --server-id-resolve='kimt cli' --server-id-deploy='kimt cli' --repo-resolve='eytanr-npm' --repo-deploy='eytanr-npm'
       jf npm install --build-name=etnbuild --build-number=1.0.0
       jf publish --build-name=etnbuild --build-number=1.0.0
       jf bs etnbuild 1.0.0
+  
+- task: JFrogAudit@1
+  inputs:
+    xrayConnection: 'kimt2'
+    watchesSource: 'none'
+    licenses: false
