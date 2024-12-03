@@ -17,13 +17,13 @@ steps:
   inputs:
     command: 'install'
     artifactoryConnection: 'kimt'
-    sourceRepo: 'etnpm'
+    sourceRepo: 'etnpm-npm'
 
 - task: JFrogNpm@1
   inputs:
     command: 'pack and publish'
     artifactoryConnection: 'kimt'
-    targetRepo: 'etnpm'
+    targetRepo: 'etnpm-npm'
 
 - task: JFrogBuildScan@1
   inputs:
