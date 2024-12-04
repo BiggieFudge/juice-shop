@@ -12,6 +12,13 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
+- task: JFrogAudit@1
+  inputs:
+    xrayConnection: 'kimt2'
+    watchesSource: 'none'
+    licenses: false
+    args: '--format=json'
+
 
 - task: JFrogNpm@1
   inputs:
@@ -34,8 +41,3 @@ steps:
     vuln: false
 
   
-- task: JFrogAudit@1
-  inputs:
-    xrayConnection: 'kimt2'
-    watchesSource: 'none'
-    licenses: false
