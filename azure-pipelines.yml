@@ -20,7 +20,7 @@ steps:
   inputs:
     jfrogPlatformConnection: 'idani25plat'
     useCustomVersion: true
-    cliVersion: '$(jfrogCliVersion)'
+    cliVersion: 'latest'
     command: |
       jf rt ping
 
