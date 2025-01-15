@@ -11,13 +11,13 @@ pool: default
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
 - task: JfrogCliV2@1
   inputs:
     jfrogPlatformConnection: 'idani25plat'
     useCustomVersion: true
-    cliVersion: '2.73.0'
-    command: 'jf rt ping'
+    cliVersion: '$(jfrogCliVersion)'
+    command: |
+      jf rt ping
 - task: JFrogAudit@1
   inputs:
     xrayConnection: 'kimt2'
