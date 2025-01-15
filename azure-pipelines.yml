@@ -10,10 +10,8 @@ pool: default
 
 steps:
 - script: |
-    echo "Fetching the latest JFrog CLI version..."
-    latestVersion=$(curl -s https://api.github.com/repos/jfrog/jfrog-cli/releases/latest | jq -r '.tag_name' | sed 's/^v//')
-    echo "##vso[task.setvariable variable=jfrogCliVersion]$latestVersion"
-  displayName: 'Set jfrogCliVersion to the latest version'
+    echo "hello."
+  displayName: 'hello world'
 
 
 - task: JfrogCliV2@1
