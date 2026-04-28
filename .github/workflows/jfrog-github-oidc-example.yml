@@ -19,14 +19,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ping JFrog (Optional)
-        run: jf rt ping
-
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         with:
           oidc-provider-name: BiggieFudge/juice-shop@github
 
+      - name: Ping JFrog (Optional)
+        run: jf rt ping
+        
       - name: Build Docker Image
         run: |
           # Build the image locally
