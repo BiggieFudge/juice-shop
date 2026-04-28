@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build-and-scan:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       # Define your image name here for consistency
       IMAGE_NAME: ${{ vars.JF_URL }}/docker-local/juice-shop:${{ github.sha }}
