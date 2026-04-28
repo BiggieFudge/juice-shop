@@ -2,17 +2,13 @@ name: "Setup JFrog CLI OIDC Example"
 on: push
 
 permissions:
-  # This is required for requesting the OIDC token
   id-token: write
-  # This is required for actions/checkout
   contents: read
 
 jobs:
   build-and-scan:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
-      # Define your image name here for consistency
-      IMAGE_NAME: ${{ vars.JF_URL }}/docker-local/juice-shop:${{ github.sha }}
       JF_URL: ${{ vars.JF_URL }}
 
     steps:
@@ -24,16 +20,26 @@ jobs:
         with:
           oidc-provider-name: BiggieFudge/juice-shop@github
 
-      - name: Ping JFrog (Optional)
-        run: jf rt ping
-        
       - name: Build Docker Image
         run: |
-          # Build the image locally
-          docker build -t ${{ env.IMAGE_NAME }} .
+          # 1. Create a Docker-friendly URL (remove https:// and any trailing slashes)
+          DOCKER_REGISTRY=$(echo "${{ vars.JF_URL }}" | sed -e 's|^https://||' -e 's|/$||')
+          
+          # 2. Construct the full image name
+          IMAGE_NAME="$DOCKER_REGISTRY/docker-local/juice-shop:${{ github.sha }}"
+          
+          echo "Building image: $IMAGE_NAME"
+          
+          # 3. Build the image
+          docker build -t "$IMAGE_NAME" .
+          
+          # 4. Save the name for the next step
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
 
       - name: JFrog Docker Scan
         run: |
-          # Scan the image using JFrog Xray
+          # Use the variable we saved in GITHUB_ENV
           jf docker scan ${{ env.IMAGE_NAME }}
 
+      - name: Ping JFrog
+        run: jf rt ping
