@@ -6,20 +6,34 @@ permissions:
   id-token: write
   # This is required for actions/checkout
   contents: read
+
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
+    env:
+      # Define your image name here for consistency
+      IMAGE_NAME: ${{ vars.JF_URL }}/docker-local/juice-shop:${{ github.sha }}
+      JF_URL: ${{ vars.JF_URL }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Ping JFrog (Optional)
+        run: jf rt ping
+
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
-        env:
-          JF_URL: ${{ vars.JF_URL }}
         with:
           oidc-provider-name: BiggieFudge/juice-shop@github
 
-      - name: Run JFrog CLI
+      - name: Build Docker Image
         run: |
-          # Ping the server
-          jf rt ping
+          # Build the image locally
+          docker build -t ${{ env.IMAGE_NAME }} .
+
+      - name: JFrog Docker Scan
+        run: |
+          # Scan the image using JFrog Xray
+          jf docker scan ${{ env.IMAGE_NAME }}
+
